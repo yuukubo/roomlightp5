@@ -1,15 +1,16 @@
 // roomlightp5
 
-let game_title = "* roomlightp5 * c2.1"
+let game_title = "* roomlightp5 * c3.2"
 let [canvas_W, canvas_H] = [400, 400];
 let switch_X = canvas_W / 2;
 let switch_Y = canvas_H / 2;
 let switch_W = 80;
 let switch_H = 80;
+let switch_RGB = [150, 150, 150];
 let is_switch_on = 0;
 let background_RGB = [230, 230 ,230];
-let on_RGB = [100, 100, 100];
-let off_RGB = [50, 50, 50];
+let on_RGB = [250, 250, 250, 150];
+let off_RGB = [50, 50, 50, 150];
 let is_touch = 0;
 
 function setup() {
@@ -22,12 +23,8 @@ function setup() {
 function draw() {
   background(background_RGB[0], background_RGB[1], background_RGB[2]);
   set_game_title();
-  if (is_switch_on) {
-    set_switch(on_RGB[0], on_RGB[1], on_RGB[2], switch_X, switch_Y, switch_W, switch_H);
-  } else {
-    set_switch(off_RGB[0], off_RGB[1], off_RGB[2], switch_X, switch_Y, switch_W, switch_H);
-  }
-  
+  set_switch(switch_RGB[0], switch_RGB[1], switch_RGB[2], switch_X, switch_Y, switch_W, switch_H);
+  set_light();
   if (1 == is_touch) {
     touched();
     is_touch = 0;
@@ -69,8 +66,22 @@ function set_switch(switch_R, switch_G, switch_B, switch_X, switch_Y, switch_W, 
   fill(switch_R, switch_G, switch_B);
   rect(switch_X, switch_Y, switch_W, switch_H, 10);
   if (!is_switch_on) {
-    fill(switch_R + 50, switch_G + 50, switch_B + 50);
+    fill(switch_R + 30, switch_G + 30, switch_B + 30);
     rect(switch_X - 5, switch_Y -5, switch_W, switch_H, 10);
+  }
+  pop();
+}
+
+function set_light() {
+  push();
+  noStroke();
+  rectMode(CENTER);
+  if (is_switch_on) {
+    fill(on_RGB[0], on_RGB[1], on_RGB[2], on_RGB[3]);
+    rect(canvas_W / 2, canvas_H / 2, canvas_W, canvas_H);
+  } else {
+    fill(off_RGB[0], off_RGB[1], off_RGB[2], off_RGB[3]);
+    rect(canvas_W / 2, canvas_H / 2, canvas_W, canvas_H);
   }
   pop();
 }
