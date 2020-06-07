@@ -1,14 +1,15 @@
 // roomlightp5
 
-let game_title = "* roomlightp5 * c1.0"
+let game_title = "* roomlightp5 * c2.1"
 let [canvas_W, canvas_H] = [400, 400];
 let switch_X = canvas_W / 2;
 let switch_Y = canvas_H / 2;
 let switch_W = 80;
 let switch_H = 80;
 let is_switch_on = 0;
-let on_RGB = [10, 200, 100];
-let off_RGB = [250, 90, 90];
+let background_RGB = [230, 230 ,230];
+let on_RGB = [100, 100, 100];
+let off_RGB = [50, 50, 50];
 let is_touch = 0;
 
 function setup() {
@@ -19,7 +20,7 @@ function setup() {
 }
  
 function draw() {
-  background(200, 200 ,200);
+  background(background_RGB[0], background_RGB[1], background_RGB[2]);
   set_game_title();
   if (is_switch_on) {
     set_switch(on_RGB[0], on_RGB[1], on_RGB[2], switch_X, switch_Y, switch_W, switch_H);
@@ -67,6 +68,10 @@ function set_switch(switch_R, switch_G, switch_B, switch_X, switch_Y, switch_W, 
   rectMode(CENTER);
   fill(switch_R, switch_G, switch_B);
   rect(switch_X, switch_Y, switch_W, switch_H, 10);
+  if (!is_switch_on) {
+    fill(switch_R + 50, switch_G + 50, switch_B + 50);
+    rect(switch_X - 5, switch_Y -5, switch_W, switch_H, 10);
+  }
   pop();
 }
 
